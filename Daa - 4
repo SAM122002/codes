@@ -1,0 +1,30 @@
+def knapsack(w, wt, val, n):
+    k = [[0 for x in range (w+1)] for x in range (n+1)]
+    
+    for i in range(n+1):
+        for w in range(w+1):
+            if i == 0 or w == 0:
+                k[i][w] = 0
+            elif wt[i-1] <=w:
+                k[i][w] = max(val[i-1] + k[i-1][w-wt[i-1]], k[i-1][w])
+            else:
+                k[i][w]= k[i-1][w]
+                
+    return k[n][w]
+def InputList():
+    lst = []
+    n = int(input("Enter number of Element:"))
+    
+    for i in range(0, n):
+        ele = int(input())
+        lst.append(ele)
+    return lst
+#Driver code
+#val = [60, 100, 120]
+val= InputList()
+#wt = [10, 20, 30]
+wt = InputList()
+#w=50
+w=int(input("Enter the capacity:"))
+n = len(val)
+print(knapsack(w, wt, val, n))
